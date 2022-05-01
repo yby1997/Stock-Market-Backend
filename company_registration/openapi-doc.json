@@ -1,0 +1,113 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/v1.0/market/company/register": {
+      "post": {
+        "tags": [
+          "company-controller"
+        ],
+        "operationId": "createCompany",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Company"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Company"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Company": {
+        "required": [
+          "companyCEO",
+          "companyName",
+          "companyTurnover",
+          "companyWebsite",
+          "listedStockExchange"
+        ],
+        "type": "object",
+        "properties": {
+          "companyCode": {
+            "$ref": "#/components/schemas/ObjectId"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "companyCEO": {
+            "type": "string"
+          },
+          "companyTurnover": {
+            "minimum": 10000000,
+            "type": "number",
+            "format": "double"
+          },
+          "companyWebsite": {
+            "type": "string"
+          },
+          "listedStockExchange": {
+            "type": "string"
+          },
+          "relatedStock": {
+            "$ref": "#/components/schemas/Stock"
+          }
+        }
+      },
+      "ObjectId": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Stock": {
+        "type": "object",
+        "properties": {
+          "companyCode": {
+            "$ref": "#/components/schemas/ObjectId"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}
